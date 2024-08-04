@@ -167,4 +167,86 @@ public class EchoClient {
     public static void main(String[] args) throws IOException {
         new EchoClient().start();
     }
+
+    /**
+     * 读取Http请求的请求行，不能使用这个方法来读取Http请求的正文
+     *
+     * @return true表示有数据被读取， false没有数据被读取，需要释放线程
+     * @throws IOException 在读取 HTTP 请求行过程当中发生I/O错误
+     */
+//    public boolean parseRequestLine() throws IOException {
+//        if (!parsingRequestLine) {
+//            return true;
+//        }
+//        if (parsingRequestLinePhase < 2) {
+//            if (!f()) return false;
+//            parsingRequestLinePhase = 4;
+//        }
+//        // 读取此次请求的请求类型GET、POST...
+//        if (parsingRequestLinePhase == 2) {
+//            boolean space = false;
+//            while (!space) {
+//                int pos = byteBuffer.position();
+//                chr = byteBuffer.get();
+//                if (chr == Constants.SP || chr == Constants.HT) {
+//                    space = true;
+//                    request.setStrVal(Request.Type.METHOD_MB, byteBuffer.array(), parsingRequestLineStart,
+//                            pos - parsingRequestLineStart);
+//                    parsingRequestLineStart = byteBuffer.position();
+//                    parsingRequestLinePhase = 3;
+//                }
+//            }
+//        }
+//        // 读取请求路径和路径参数
+//        if(parsingRequestLinePhase == 3){
+//            boolean space = false;
+//            int pos = -1;
+//            while (!space) {
+//                pos = byteBuffer.position();
+//                chr = byteBuffer.get();
+//                // "?" 后面为路径参数，这里标记参数开始位置
+//                if(chr == Constants.QUESTION){
+//                    parsingRequestLineQPos = byteBuffer.position();
+//                }
+//                if (chr == Constants.SP || chr == Constants.HT) {
+//                    space = true;
+//                    parsingRequestLinePhase = 4;
+//                }
+//            }
+//            // 有参数需要处理， 这里-1 是为了忽略 "?" 符号，"?"前为请求路径，后为参数
+//            if(parsingRequestLineQPos >= 0){
+//                request.setStrVal(Request.Type.URI_MB,  byteBuffer.array(), parsingRequestLineStart,
+//                        parsingRequestLineQPos - 1);
+//                request.setStrVal(Request.Type.QUERY_MB, byteBuffer.array(), parsingRequestLineQPos,
+//                        pos);
+//            }else{
+//                request.setStrVal(Request.Type.URI_MB,  byteBuffer.array(), parsingRequestLineStart,
+//                        pos - parsingRequestLineStart);
+//            }
+//            parsingRequestLineStart = byteBuffer.position();
+//        }
+//        // 读取请求协议
+//        if(parsingRequestLinePhase == 4){
+//            boolean space = false;
+//            while (!space) {
+//                int pos = byteBuffer.position();
+//                chr = byteBuffer.get();
+//                if (chr == Constants.CR || chr == Constants.LF) {
+//                    space = true;
+//                    request.setStrVal(Request.Type.PROTO_MB, byteBuffer.array(), parsingRequestLineStart,
+//                            pos);
+//                    parsingRequestLineStart = byteBuffer.position();
+//                    parsingRequestLinePhase = 5;
+//                }
+//            }
+//        }
+//        if (parsingRequestLinePhase == 5) {
+//            parsingRequestLine = false;
+//            parsingRequestLinePhase = 0;
+//            parsingRequestLineStart = 0;
+//            parsingRequestLineQPos = 0;
+//            return true;
+//        }
+//        return false;
+//    }
 }
